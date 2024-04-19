@@ -9,25 +9,58 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Ad',
+            name="Ad",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=200, verbose_name='Название')),
-                ('price', models.PositiveIntegerField(validators=[django.core.validators.MinValueValidator(1)], verbose_name='Цена')),
-                ('description', models.TextField(max_length=1000, verbose_name='Описание')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=200, verbose_name="Название")),
+                (
+                    "price",
+                    models.PositiveIntegerField(
+                        validators=[django.core.validators.MinValueValidator(1)],
+                        verbose_name="Цена",
+                    ),
+                ),
+                (
+                    "description",
+                    models.TextField(max_length=1000, verbose_name="Описание"),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='AdPicture',
+            name="AdPicture",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('link', models.ImageField(blank=True, null=True, upload_to='img')),
-                ('announcement', models.ForeignKey(default=None, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='pictures', to='announcement_api.ad')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("link", models.ImageField(blank=True, null=True, upload_to="img")),
+                (
+                    "announcement",
+                    models.ForeignKey(
+                        default=None,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="pictures",
+                        to="announcement_api.ad",
+                    ),
+                ),
             ],
         ),
     ]

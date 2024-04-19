@@ -7,11 +7,13 @@ from .models import Ad, AdPicture
 class AdPictureSerializer(serializers.ModelSerializer):
     class Meta:
         model = AdPicture
-        fields = ['link']
+        fields = ["link"]
 
 
 class AdSerializer(serializers.ModelSerializer):
-    pictures = AdPictureSerializer(many=True, label='Изображение', read_only=True)
+    pictures = AdPictureSerializer(
+        many=True, label="Изображение", read_only=True, required=False
+    )
     uploaded_pictures = serializers.ListField(
         child=serializers.ImageField(use_url=True, required=False),
         write_only=True,
@@ -20,10 +22,10 @@ class AdSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ad
-        fields = ['id', 'name', 'price', 'description', 'pictures', 'uploaded_pictures']
+        fields = ["id", "name", "price", "description", "pictures", "uploaded_pictures"]
 
     def create(self, validated_data):
-        uploaded_pictures = validated_data.pop('uploaded_pictures')
+        uploaded_pictures = validated_data.pop("uploaded_pictures")
 
         if len(uploaded_pictures) > 3:
             raise ValidationError("Максимальное количество фотографий - 3.")
@@ -41,18 +43,18 @@ class AdListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ad
-        fields = ['name', 'picture', 'price']
+        fields = ["name", "picture", "price"]
 
     def get_picture(self, obj):
         first_picture = obj.pictures.first()
         if first_picture:
             return first_picture.link.url
-        return f'Изображение отсутствует'
+        return "Изображение отсутствует"
 
 
 class AllFieldsListSerializer(serializers.ModelSerializer):
-    pictures = AdPictureSerializer(many=True, label='Изображение', read_only=True)
+    pictures = AdPictureSerializer(many=True, label="Изображение", read_only=True)
 
     class Meta:
         model = Ad
-        fields = ['name', 'price', 'description', 'pictures']
+        fields = ["name", "price", "description", "pictures"]

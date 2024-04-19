@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('announcement_api', '0001_initial'),
+        ("announcement_api", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='ad',
-            name='data',
+            model_name="ad",
+            name="data",
             field=models.DateField(auto_now_add=True, null=True),
         ),
     ]
