@@ -1,0 +1,41 @@
+version: "2.24.0"
+
+volumes:
+    pgdata:
+
+
+networks:
+    avito_api:
+
+services:
+    postgresapidb:
+        container_name: postgres_container
+        image: postgres:latest
+        restart: unless-stopped
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+        networks:
+            - avito_api
+        ports:
+            - 5432:5432
+        env_file:
+            - .env
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres -d announcement_api"]
+            interval: 30s
+            timeout: 5s
+            retries: 5
+            start_period: 10s
+
+    avitotech:
+        container_name: avito_tech_api
+        build: .
+        networks:
+            - avito_api
+        ports:
+            - 8000:8000
+        env_file:
+            - .env
+        depends_on:
+            - postgresapidb
+
