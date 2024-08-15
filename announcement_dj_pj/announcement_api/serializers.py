@@ -11,9 +11,7 @@ class AdPictureSerializer(serializers.ModelSerializer):
 
 
 class AdSerializer(serializers.ModelSerializer):
-    pictures = AdPictureSerializer(
-        many=True, label="Изображение", read_only=True, required=False
-    )
+    pictures = AdPictureSerializer(many=True, label="Изображение", read_only=True, required=False)
     uploaded_pictures = serializers.ListField(
         child=serializers.ImageField(use_url=True, required=False),
         write_only=True,
