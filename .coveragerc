@@ -1,0 +1,2 @@
+[run]
+omit=tests/*,.venv/*,manage.py,announcement_dj_pj/*,*tests.py,
